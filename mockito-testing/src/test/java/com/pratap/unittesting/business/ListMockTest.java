@@ -1,26 +1,28 @@
 package com.pratap.unittesting.business;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.atMost;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.atMost;
+import org.mockito.Mockito;
 
 class ListMockTest {
 
 	@SuppressWarnings("unchecked")
-	List<String> mockList= mock(List.class);
+	List<String> mockList= Mockito.mock(List.class);
 	
 	@Test
 	void testReturnWithGenericParameter() {
@@ -74,6 +76,41 @@ class ListMockTest {
 		assertEquals("test1", allValues.get(0));
 		assertEquals("test2", allValues.get(1));
 		assertEquals("test3", allValues.get(2));
+	}
+	
+	@Test
+	public void mock() {
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<String> arrayListMock = Mockito.mock(ArrayList.class);
+		System.out.println(arrayListMock.get(0));//null
+		System.out.println(arrayListMock.size());//0
+		arrayListMock.add("Test");
+		arrayListMock.add("Test2");
+		System.out.println(arrayListMock.size());//0
+		when(arrayListMock.size()).thenReturn(5);
+		System.out.println(arrayListMock.size());//5
+	}
+	
+	@Test
+	public void spying() {
+		
+		@SuppressWarnings("unchecked")
+		// when you spy an Object, original behavior always retain 
+		ArrayList<String> arrayListSpy = spy(ArrayList.class);
+		arrayListSpy.add(0, "test1");
+		System.out.println(arrayListSpy.get(0));//test1
+		System.out.println(arrayListSpy.size());//1
+		arrayListSpy.add("Test");
+		arrayListSpy.add("Test2");
+		System.out.println(arrayListSpy.size());//3
+		when(arrayListSpy.size()).thenReturn(5);
+		System.out.println(arrayListSpy.size());//5
+		
+		arrayListSpy.add("Test4");
+		verify(arrayListSpy).add("Test4");
+		
+		
 	}
 
 }
