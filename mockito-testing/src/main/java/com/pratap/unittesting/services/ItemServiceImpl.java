@@ -37,4 +37,14 @@ public class ItemServiceImpl implements ItemService {
 		return items.stream().map(item -> modelMapper.map(item, ItemDto.class)).collect(Collectors.toList());
 	}
 
+	@Override
+	public ItemDto createItem(ItemDto itemDto) {
+		
+		modelMapper = new ModelMapper();
+		ItemEntity itemEntity = modelMapper.map(itemDto, ItemEntity.class);
+		ItemEntity savedEntity = itemRepository.save(itemEntity);
+		savedEntity.setValue(savedEntity.getPrice() *  savedEntity.getQuantity());
+		return modelMapper.map(savedEntity, ItemDto.class);
+	}
+
 }

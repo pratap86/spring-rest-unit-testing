@@ -1,5 +1,7 @@
 package com.pratap.unittesting.business;
 
+import java.util.Arrays;
+
 import com.pratap.unittesting.data.SomeDataService;
 
 public class SomeBusinessImpl {
@@ -12,21 +14,12 @@ public class SomeBusinessImpl {
 	}
 
 	public int calculateSum(int[] data) {
-		int sum = 0;
-		for(int value : data) {
-			sum +=value;
-		}
 		
-		return sum;
+		return Arrays.stream(data).reduce(Integer :: sum).orElse(0);
 	}
 	
 	public int calculateSumUsingDataService() {
-		int sum = 0;
-		int[] data = dataService.retrieveAllData();
-		for(int value : data) {
-			sum +=value;
-		}
 		
-		return sum;
+		return Arrays.stream(dataService.retrieveAllData()).reduce(Integer :: sum).orElse(0);
 	}
 }
