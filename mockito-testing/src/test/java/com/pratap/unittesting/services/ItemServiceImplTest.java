@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.pratap.unittesting.dto.ItemDto;
@@ -48,6 +49,18 @@ class ItemServiceImplTest {
 		List<ItemDto> items = itemServiceImpl.getItems();
 		assertEquals(items.get(0).getValue(), entities.get(0).getValue());
 		assertEquals(items.get(1).getValue(), entities.get(1).getValue());
+	}
+	
+	@Test
+	public void testCreateItem() {
+		ItemDto itemDto = new ItemDto();
+		itemDto.setName("test");
+		itemDto.setPrice(2000);
+		itemDto.setQuantity(1);
+		when(itemRepository.save(Mockito.any())).thenReturn(new ItemEntity(101, "test", 2000, 1));
+		ItemDto createdItem = itemServiceImpl.createItem(itemDto);
+		assertEquals(createdItem.getId(), 101);
+		
 	}
 
 }

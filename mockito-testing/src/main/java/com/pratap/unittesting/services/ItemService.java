@@ -10,4 +10,6 @@ public interface ItemService {
 	ItemResponseModel retrieveHardCodedItem();
 	
 	List<ItemDto> getItems();
+	
+	ItemDto createItem(ItemDto itemDto);
 }

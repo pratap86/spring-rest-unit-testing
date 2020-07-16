@@ -20,7 +20,7 @@ class ItemRepositoryTest {
 	void testFindAll() {
 		
 		List<ItemEntity> items = itemRepository.findAll();
-		assertEquals(10, items.size());
+		assertEquals(3, items.size());
 	}
 
 }
