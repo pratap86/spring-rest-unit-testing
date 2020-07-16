@@ -1,14 +1,18 @@
 package com.pratap.unittesting.models;
 
-public class Item {
+public class ItemResponseModel {
 
 	private int id;
 	private String name;
 	private int price;
 	private int quantity;
-
-	public Item(int id, String name, int price, int quantity) {
-
+	private int value;
+	
+	public ItemResponseModel() {
+	}
+	
+	public ItemResponseModel(int id, String name, int price, int quantity) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -47,6 +51,13 @@ public class Item {
 		this.quantity = quantity;
 	}
 
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
 	@Override
 	public String toString() {
 		return String.format("Item [id=%s, name=%s, price=%s, quantity=%s]", id, name, price, quantity);
